@@ -6,7 +6,7 @@ import ControlledExample from "./controlled-form";
 import ItemKey from "./item-key";
 import Demo from "./demo-props";
 import StudyGen from "./myGenerics";
-import Counter from "./counter";
+import Counter from "./counter/counter";
 import Toggle from "./toggle-conditional-rendering";
 
 function showName(names: string) {
@@ -14,6 +14,7 @@ function showName(names: string) {
 }
 
 function App() {
+  console.log("app component is called");
   const [details, setDetails] = useState("");
   const name = "sheetal";
   const age = 27;

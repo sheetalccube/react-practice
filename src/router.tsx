@@ -3,7 +3,7 @@ import Home from "./pages/home";
 import About from "./pages/About";
 import Todos from "./components/Todos/todo";
 import UsersMain from "./components/usersList/usersMain";
-import Counter from "./components/counter";
+import Counter from "./components/counter/counter";
 import UserDetail from "./components/usersList/userDetail";
 import Error from "./pages/Error";
 import ReactTut from "./pages/ReactTut";
