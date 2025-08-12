@@ -1,5 +1,5 @@
 import {
-  Alert,
+  Box,
   Button,
   Stack,
   Table,
@@ -12,6 +12,8 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import styles from "./todo.module.css";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 function Todos() {
   interface TodoItem {
@@ -19,9 +21,30 @@ function Todos() {
     name: string;
     description: string;
   }
-  const [todName, setName] = useState("");
-  const [todDescription, setDescription] = useState("");
+  const validationSchema = Yup.object({
+    name: Yup.string()
+      .trim()
+      .required("Name is required")
+      .min(3, "Name must be at least 3 characters"),
+    description: Yup.string()
+      .trim()
+      .required("Description is required")
+      .min(5, "Description must be at least 5 characters"),
+  });
 
+  const formik = useFormik({
+    initialValues: { name: "", description: "" },
+    validationSchema,
+    onSubmit: (values, { resetForm }) => {
+      const newTodo: TodoItem = {
+        id: todos.length + 1,
+        name: values.name.trim(),
+        description: values.description.trim(),
+      };
+      setTodos([...todos, newTodo]);
+      resetForm();
+    },
+  });
   const [todos, setTodos] = useState<TodoItem[]>([
     {
       id: 1,
@@ -49,23 +72,7 @@ function Todos() {
       description: "Fix the kitchen sink leakage",
     },
   ]);
-  const [error, setError] = useState("");
 
-  function handleSubmit() {
-    if (!todName.trim() || !todDescription.trim()) {
-      setError("Both fields are required.");
-      return;
-    }
-    setError("");
-    const newTodo: TodoItem = {
-      id: todos.length + 1,
-      name: todName.trim(),
-      description: todDescription.trim(),
-    };
-    setTodos([...todos, newTodo]);
-    setName("");
-    setDescription("");
-  }
   function handleDelete(id: number) {
     console.log(id, "---");
   }
@@ -76,53 +83,58 @@ function Todos() {
 
   return (
     <div className={styles.todo_body}>
-      {error && (
-        <Alert severity="error" sx={{ mb: 2 }}>
-          {error}
-        </Alert>
-      )}
-
       <h3 className={styles.page_heading}>Todo Managment</h3>
-      <TextField
-        onChange={(event) => setName(event.target.value)}
-        required
-        value={todName}
-        margin="dense"
-        label="Name"
-        placeholder="Enter name"
-        fullWidth
-        variant="outlined"
-        size="medium"
-        name="itemName"
-      />
-      <br />
-      <TextField
-        onChange={(event) => setDescription(event.target.value)}
-        value={todDescription}
-        required
-        margin="dense"
-        label="Description"
-        placeholder="Enter Description"
-        fullWidth
-        variant="outlined"
-        size="medium"
-        name="description"
-      />
-      <br />
-      <Button
-        sx={{
-          display: "block",
-          margin: "10px auto 0 auto",
-          width: "180px",
-        }}
-        disabled={!todName.trim() || !todDescription.trim()}
-        variant="contained"
-        type="submit"
-        size="large"
-        onClick={handleSubmit}
-      >
-        Submit
-      </Button>
+      <Box component="form" onSubmit={formik.handleSubmit}>
+        <TextField
+          onChange={formik.handleChange}
+          label="Todo Name"
+          value={formik.values.name}
+          onBlur={formik.handleBlur}
+          sx={{ mb: 2 }}
+          required
+          margin="dense"
+          placeholder="Enter name"
+          fullWidth
+          variant="outlined"
+          size="medium"
+          name="name"
+          error={formik.touched.name && Boolean(formik.errors.name)}
+          helperText={formik.touched.name && formik.errors.name}
+        />
+
+        <br />
+        <TextField
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.description}
+          required
+          margin="dense"
+          label="Description"
+          placeholder="Enter Description"
+          fullWidth
+          variant="outlined"
+          size="medium"
+          name="description"
+          error={
+            formik.touched.description && Boolean(formik.errors.description)
+          }
+          helperText={formik.touched.description && formik.errors.description}
+        />
+        <br />
+        <Button
+          sx={{
+            display: "block",
+            margin: "10px auto 0 auto",
+            width: "180px",
+          }}
+          disabled={!(formik.isValid && formik.dirty)}
+          variant="contained"
+          type="submit"
+          size="large"
+        >
+          Submit
+        </Button>
+      </Box>
 
       {todos.length > 0 && (
         <div style={{ marginTop: "50px" }}>

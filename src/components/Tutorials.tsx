@@ -8,7 +8,7 @@ function Tutorials() {
         Click on the topic below to learn
       </Typography>
 
-      <Stack direction="column" spacing={2} sx={{ maxWidth: 200 }}>
+      <Stack direction="column" spacing={2} sx={{ maxWidth: 300 }}>
         <Button component={Link} to="javascript" variant="outlined">
           JavaScript
         </Button>

@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 interface UsersProps {
   data: User; 
 }
-
-
 function Users({ data }: UsersProps) {
   const navigate = useNavigate();
 
@@ -30,9 +28,6 @@ function Users({ data }: UsersProps) {
           </CardContent>
         </CardActionArea>
       </Card>
-
-      
-      
     </>
   );
 }

@@ -11,14 +11,13 @@ import Tutorials from "./components/Tutorials";
 import AuthGuard from "./guards/AuthGuard";
 import Login from "./pages/Login";
 import ControlledExample from "./components/controlled-form";
+import SignupForm from "./pages/signup";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: Home,
     children: [
-      { path: "user-list", Component: UsersMain },
-      { path: "/about", Component: About },
     ],
   },
   {
@@ -35,7 +34,9 @@ export const router = createBrowserRouter([
       },
     ],
   },
-
+  { path: "/about", Component: About },
+  { path: "user-list", Component: UsersMain },
+  {path:'signup',Component:SignupForm},
   { path: "todos", Component: Todos },
   { path: "counter", Component: Counter },
   // dynamic route
