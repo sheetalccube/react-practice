@@ -1,6 +1,7 @@
 import Users from "./users";
 import { useNavigate } from "react-router-dom";
 import { Box, Button } from "@mui/material";
+import { useState } from "react";
 
 export interface User {
   id: number;
@@ -21,6 +22,18 @@ function UsersMain() {
     { id: 6, name: "Diana Patel", age: 30, email: "diana.patel@example.com" },
 
   ];
+  const [textStyle, setTextStyle] = useState({
+    color: "black",
+    backgroundColor: "white",
+  });
+
+  function changeColor(color: string) {
+    setTextStyle((prev) => ({
+      ...prev,
+      backgroundColor: color,
+    }));
+  }
+
 
   return (
     <Box sx={{ p: 2 }}>
@@ -32,6 +45,15 @@ function UsersMain() {
       >
         Go Back
       </Button>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={() => changeColor('pink')}
+        sx={{ mb: 2 }}
+      >
+        Change color
+      </Button>
+
       <Box
         sx={{
           display: "flex",
@@ -40,7 +62,9 @@ function UsersMain() {
         }}
       >
         {userList.map((item) => (
-          <Users key={item.id} data={item} />
+          <Users key={item.id} data={item}
+            textStyle={textStyle}
+          />
         ))}
       </Box>
     </Box>

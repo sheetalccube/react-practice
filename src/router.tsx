@@ -12,12 +12,17 @@ import AuthGuard from "./guards/AuthGuard";
 import Login from "./pages/Login";
 import ControlledExample from "./components/controlled-form";
 import SignupForm from "./pages/signup";
+import App from "./components/main";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: Home,
-    children: [
+    children: [{
+      path:'/',
+      Component:App
+
+    }
     ],
   },
   {

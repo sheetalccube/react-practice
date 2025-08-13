@@ -1,6 +1,4 @@
 import { useState } from "react";
-import UsersMain from "./usersList/usersMain";
-import Todos from "./Todos/todo";
 import CheckBoxEx from "./skill-checkbox";
 import ControlledExample from "./controlled-form";
 import ItemKey from "./item-key";
@@ -8,6 +6,9 @@ import Demo from "./demo-props";
 import StudyGen from "./myGenerics";
 import Counter from "./counter/counter";
 import Toggle from "./toggle-conditional-rendering";
+import LazyParent from "./LazyLoad/lazyParent";
+import StyledExample from "./styledExample/main";
+import InputRefExample from "./hookExamples/inputRefExample";
 
 function showName(names: string) {
   alert(names);
@@ -35,9 +36,15 @@ function App() {
 
   return (
     <div>
-      <UsersMain />
-      <Todos />
+      {/* <UsersMain /> */}
+      {/* <Todos /> */}
       <hr />
+      <LazyParent />
+      <hr/>
+      <StyledExample/>
+      <hr/>
+      <InputRefExample/>
+      
       <h1>
         my name is {name} and age is {age}
       </h1>
@@ -51,7 +58,8 @@ function App() {
       <ItemKey></ItemKey>
       <hr />
       <h1>props</h1>
-      <Demo name="g" age={12} />
+      {/* call parent component function from child component */}
+      <Demo name="g" age={12} showName={() => showName('hello')}/>
       <hr />
       <h1>Generics and Interfaces</h1>
       <StudyGen />
