@@ -1,7 +1,7 @@
 import { Card, CardActionArea,  CardContent, CardMedia, Typography } from "@mui/material";
-import type { User } from "./usersMain";
+import type { User } from "@/components/usersList/usersMain";
 import { useNavigate } from "react-router-dom";
-import { StyledButton } from "../styledExample/main";
+import { StyledButton } from "@/components/styledExample/main";
 
 interface UsersProps {
   data: User;

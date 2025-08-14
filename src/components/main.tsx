@@ -1,14 +1,14 @@
 import { useState } from "react";
-import CheckBoxEx from "./skill-checkbox";
-import ControlledExample from "./controlled-form";
-import ItemKey from "./item-key";
-import Demo from "./demo-props";
-import StudyGen from "./myGenerics";
-import Counter from "./counter/counter";
-import Toggle from "./toggle-conditional-rendering";
-import LazyParent from "./LazyLoad/lazyParent";
-import StyledExample from "./styledExample/main";
-import InputRefExample from "./hookExamples/inputRefExample";
+import CheckBoxEx from "@/components/skill-checkbox";
+import ControlledExample from "@/components/controlled-form";
+import ItemKey from "@/components/item-key";
+import Demo from "@/components/demo-props";
+import StudyGen from "@/components/myGenerics";
+import Counter from "@/components/counter/counter";
+import Toggle from "@/components/toggle-conditional-rendering";
+import LazyParent from "@/components/LazyLoad/lazyParent";
+import StyledExample from "@/components/styledExample/main";
+import InputRefExample from "@/components/hookExamples/inputRefExample";
 
 function showName(names: string) {
   alert(names);

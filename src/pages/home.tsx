@@ -9,7 +9,6 @@ import {
   Container,
   Paper,
 } from "@mui/material";
-
 function Home() {
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("token");
