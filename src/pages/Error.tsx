@@ -1,7 +1,10 @@
+// import Header from "@/components/layouts/Header";
 
 function Error() {
   return (
-    <div>No page found </div>
+    <div>
+      {/* <Header/> */}
+      No page found </div>
   );
 }
 

@@ -14,8 +14,12 @@ import { useState } from "react";
 import styles from "./todo.module.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useTheme } from "@mui/material/styles";
+
 
 function Todos() {
+  const theme = useTheme();
+
   interface TodoItem {
     id: number;
     name: string;
@@ -83,43 +87,60 @@ function Todos() {
 
   return (
     <div className={styles.todo_body}>
-      <h3 className={styles.page_heading}>Todo Managment</h3>
-      <Box component="form" onSubmit={formik.handleSubmit}>
-        <TextField
-          onChange={formik.handleChange}
-          label="Todo Name"
-          value={formik.values.name}
-          onBlur={formik.handleBlur}
-          sx={{ mb: 2 }}
-          required
-          margin="dense"
-          placeholder="Enter name"
-          fullWidth
-          variant="outlined"
-          size="medium"
-          name="name"
-          error={formik.touched.name && Boolean(formik.errors.name)}
-          helperText={formik.touched.name && formik.errors.name}
-        />
+      <Box component="form" onSubmit={formik.handleSubmit} 
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center", // center horizontally
+          justifyContent: "center", // center vertically if you want full page center
+          margin: "0 auto",
+          // maxWidth: 500, 
+          width: "100%",
+          p: 2,
+        }}
+      >
+        <h3 className={styles.page_heading}>Todo Managment</h3>
 
-        <br />
-        <TextField
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.description}
-          required
-          margin="dense"
-          label="Description"
-          placeholder="Enter Description"
-          fullWidth
-          variant="outlined"
-          size="medium"
-          name="description"
-          error={
-            formik.touched.description && Boolean(formik.errors.description)
-          }
-          helperText={formik.touched.description && formik.errors.description}
-        />
+        <Stack direction="column" spacing={2}>
+
+          <TextField
+            onChange={formik.handleChange}
+            label="Todo Name"
+            value={formik.values.name}
+            onBlur={formik.handleBlur}
+            sx={{ mb: 2,flex: 1,width:300 }}
+            required
+            margin="dense"
+            placeholder="Enter name"
+
+            variant="outlined"
+            size="medium"
+            name="name"
+            error={formik.touched.name && Boolean(formik.errors.name)}
+            helperText={formik.touched.name && formik.errors.name}
+          />
+
+          <br />
+          <TextField
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.description}
+            required
+            margin="dense"
+            label="Description"
+            placeholder="Enter Description"
+            sx={{ mb: 2,flex: 2 ,width:300 }}
+
+            variant="outlined"
+            size="medium"
+            name="description"
+            error={
+              formik.touched.description && Boolean(formik.errors.description)
+            }
+            helperText={formik.touched.description && formik.errors.description}
+          />
+        </Stack>
+
         <br />
         <Button
           sx={{
@@ -138,9 +159,14 @@ function Todos() {
 
       {todos.length > 0 && (
         <div style={{ marginTop: "50px" }}>
+
           <TableContainer>
             <Table>
-              <TableHead sx={{ backgroundColor: "#3982e1ff" }}>
+              <TableHead   sx={{
+                backgroundColor: theme.palette.primary.main,   
+                "& th": { color: theme.palette.common.white }, 
+              }}
+              >
                 <TableRow>
                   <TableCell>
                     <strong>ID</strong>
