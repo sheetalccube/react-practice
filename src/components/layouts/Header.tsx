@@ -73,7 +73,7 @@ function Header() {
           </Link> */}
           <Box flexGrow={1} />
           {isLoggedIn ? (
-            <Button color="error" variant="contained" onClick={handleLogout}>
+            <Button variant="outlined" color="inherit" onClick={handleLogout}>
               Logout
             </Button>
           ) : (

@@ -42,59 +42,67 @@ export default function Login() {
   });
 
   return (
-    <Card sx={{ maxWidth: 400, width: "100%", p: 2 }}>
-      <CardContent>
-        <Typography variant="h5" component="h2" gutterBottom align="center">
-          Login
-        </Typography>
+    <Box
+      display="flex"
+      justifyContent="center"
+      minHeight="90vh"
+      alignItems='center'
 
-        {error && (
-          <Alert severity="error" sx={{ mb: 2 }}>
-            {error}
-          </Alert>
-        )}
-
-        <Box component="form" onSubmit={formik.handleSubmit}>
-          <TextField
-            fullWidth
-            label="Username"
-            name="username"
-            variant="outlined"
-            required
-            value={formik.values.username}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.username && Boolean(formik.errors.username)}
-            helperText={formik.touched.username && formik.errors.username}
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            fullWidth
-            label="Password"
-            name="password"
-            type="password"
-            variant="outlined"
-            required
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-            sx={{ mb: 2 }}
-          />
-
-          <Button
-            fullWidth
-            type="submit"
-            variant="contained"
-            color="primary"
-            sx={{ py: 1.2 }}
-            disabled={!formik.isValid || !formik.dirty}
-          >
+    >
+      <Card>
+        <CardContent>
+          <Typography variant="h5" component="h2" gutterBottom align="center">
             Login
-          </Button>
-        </Box>
-      </CardContent>
-    </Card>
+          </Typography>
+
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
+
+          <Box component="form" onSubmit={formik.handleSubmit}>
+            <TextField
+              fullWidth
+              label="Username"
+              name="username"
+              variant="outlined"
+              required
+              value={formik.values.username}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.username && Boolean(formik.errors.username)}
+              helperText={formik.touched.username && formik.errors.username}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              fullWidth
+              label="Password"
+              name="password"
+              type="password"
+              variant="outlined"
+              required
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+              sx={{ mb: 2 }}
+            />
+
+            <Button
+              fullWidth
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={{ py: 1.2 }}
+              disabled={!formik.isValid || !formik.dirty}
+            >
+              Login
+            </Button>
+          </Box>
+        </CardContent>
+      </Card>
+    </Box>
   );
 }

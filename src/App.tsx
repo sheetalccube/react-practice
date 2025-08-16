@@ -1,66 +1,66 @@
-import { createBrowserRouter } from "react-router-dom";
-import Home from "@/pages/home";
-import About from "@/pages/About";
-import Todos from "@/components/Todos/todo";
-import UsersMain from "@/components/usersList/usersMain";
-import Counter from "@/components/counter/counter";
-import UserDetail from "@/components/usersList/userDetail";
-import Error from "@/pages/Error";
-import ReactTut from "@/pages/ReactTut";
-import Tutorials from "@/components/Tutorials";
+import { lazy } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthGuard from "@/guards/AuthGuard";
-import Login from "@/pages/Login";
-import ControlledExample from "@/components/controlled-form";
-import SignupForm from "@/pages/signup";
-import { RouterProvider } from "react-router-dom";
+import Error from "@/pages/Error";
 import root from "./pages/root";
 
+const Home = lazy(() => import("@/pages/home"));
+const About = lazy(() => import("@/pages/About"));
+const Todos = lazy(() => import("@/components/Todos/todo"));
+const UsersMain = lazy(() => import("@/components/usersList/usersMain"));
+const Counter = lazy(() => import("@/components/counter/counter"));
+const UserDetail = lazy(() => import("@/components/usersList/userDetail"));
+const ReactTut = lazy(() => import("@/pages/ReactTut"));
+const Tutorials = lazy(() => import("@/components/Tutorials"));
+const Login = lazy(() => import("@/pages/Login"));
+const ControlledExample = lazy(() => import("@/components/controlled-form"));
+const SignupForm = lazy(() => import("@/pages/signup"));
+import { Suspense, type JSX } from "react";
+import { CircularProgress, Box } from "@mui/material";
+
+const Loader = () => (
+  <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+    <CircularProgress />
+  </Box>
+);
+const withSuspense = (Component: JSX.Element) => (
+  <Suspense fallback={<Loader />}>{Component}</Suspense>
+);
+
 function App() {
-  // this way is used for react version more than 6.0.0
   const router = createBrowserRouter([
     {
       path: "/",
       Component: root,
-      // this way will not be having layout things
-      errorElement: <Error />,
+      // errorElement: <Error />,
       children: [
-        { path: "/", Component: Home },
-
+        { path: "/", element: withSuspense(<Home />) },
         {
           path: "/tutorial",
-          Component: Tutorials,
+          element: withSuspense(<Tutorials />),
           children: [
             {
               path: "react",
               element: (
-                <AuthGuard>
-                  <ReactTut />
-                </AuthGuard>
+                <AuthGuard>{withSuspense(<ReactTut />)}</AuthGuard>
               ),
             },
           ],
         },
-        { path: "/about", Component: About },
-        { path: "user-list", Component: UsersMain },
-        { path: "signup", Component: SignupForm },
-        { path: "todos", Component: Todos },
-        { path: "counter", Component: Counter },
-        // dynamic route
-        { path: "user-detail/:id", Component: UserDetail },
-        { path: "login", Component: Login },
-        { path: "form", Component: ControlledExample },
-        // wild card route
-        // this way will have layout things
-        { path: "*", Component: Error },
+        { path: "/about", element: withSuspense(<About />) },
+        { path: "user-list", element: withSuspense(<UsersMain />) },
+        { path: "signup", element: withSuspense(<SignupForm />) },
+        { path: "todos", element: withSuspense(<Todos />) },
+        { path: "counter", element: withSuspense(<Counter />) },
+        { path: "user-detail/:id", element: withSuspense(<UserDetail />) },
+        { path: "login", element: withSuspense(<Login />) },
+        { path: "form", element: withSuspense(<ControlledExample />) },
+        { path: "*", element: <Error /> }, 
       ],
     },
   ]);
 
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

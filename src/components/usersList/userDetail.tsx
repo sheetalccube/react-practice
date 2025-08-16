@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import {
   useLocation,
   useNavigate,
@@ -14,10 +15,15 @@ function UserDetail() {
   //gives the details of the current location search param key and pathname
 
   return (
-    <div>
-      <button onClick={() => navigate(-1)}>go back</button>
-      userDetail the id is {param?.id}
-      search params {searchParams.get("name")}
+    <div style={{margin:7}}>
+      <Button variant='outlined' onClick={() => navigate(-1)}>go back</Button>
+      <h4>
+        User Detail Page -
+        <br />
+        User ID: {param?.id}
+        <br />
+        Search Param: {searchParams.get("name")}
+      </h4>
     </div>
   );
 }

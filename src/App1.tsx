@@ -1,47 +1,55 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "@/pages/home";
-import About from "@/pages/About";
-import Tutorials from "@/components/Tutorials";
-import UsersMain from "@/components/usersList/usersMain";
-import Counter from "@/components/counter/counter";
-import UserDetail from "@/components/usersList/userDetail";
-import Error from "@/pages/Error";
-import ReactTut from "@/pages/ReactTut";
+import { Suspense, lazy, type JSX } from "react";
 import AuthGuard from "@/guards/AuthGuard";
-import Todos from "@/components/Todos/todo";
-import Login from "@/pages/Login";
-import SignupForm from "@/pages/signup";
-import ControlledExample from "@/components/controlled-form";
+import Error from "@/pages/Error"; 
+
+// Lazy-loaded components
+const Home = lazy(() => import("@/pages/home"));
+const About = lazy(() => import("@/pages/About"));
+const Tutorials = lazy(() => import("@/components/Tutorials"));
+const UsersMain = lazy(() => import("@/components/usersList/usersMain"));
+const Counter = lazy(() => import("@/components/counter/counter"));
+const UserDetail = lazy(() => import("@/components/usersList/userDetail"));
+const ReactTut = lazy(() => import("@/pages/ReactTut"));
+const Todos = lazy(() => import("@/components/Todos/todo"));
+const Login = lazy(() => import("@/pages/Login"));
+const SignupForm = lazy(() => import("@/pages/signup"));
+const ControlledExample = lazy(() => import("@/components/controlled-form"));
+
+const Loader = () => <div style={{ textAlign: "center" }}>Loading...</div>;
+
+const withSuspense = (Component: JSX.Element) => (
+  <Suspense fallback={<Loader />}>{Component}</Suspense>
+);
 
 function App1() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={withSuspense(<Home />)} />
+        <Route path="/about" element={withSuspense(<About />)} />
 
-        <Route path="/about" element={<About />} />
-
-        <Route path="/tutorial" element={<Tutorials />}>
+        <Route path="/tutorial" element={withSuspense(<Tutorials />)}>
           <Route
             path="react"
             element={
               <AuthGuard>
-                <ReactTut />
+                {withSuspense(<ReactTut />)}
               </AuthGuard>
             }
           />
         </Route>
 
-        <Route path="/user-list" element={<UsersMain />} />
-        <Route path="/user-detail/:id" element={<UserDetail />} />
+        <Route path="/user-list" element={withSuspense(<UsersMain />)} />
+        <Route path="/user-detail/:id" element={withSuspense(<UserDetail />)} />
 
-        <Route path="/todos" element={<Todos />} />
-        <Route path="/counter" element={<Counter />} />
+        <Route path="/todos" element={withSuspense(<Todos />)} />
+        <Route path="/counter" element={withSuspense(<Counter />)} />
 
-        <Route path="/signup" element={<SignupForm />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={withSuspense(<SignupForm />)} />
+        <Route path="/login" element={withSuspense(<Login />)} />
 
-        <Route path="/form" element={<ControlledExample />} />
+        <Route path="/form" element={withSuspense(<ControlledExample />)} />
 
         <Route path="*" element={<Error />} />
       </Routes>

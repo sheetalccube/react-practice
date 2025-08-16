@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ShowCounter from "./ShowCounter";
+import { Button } from "@mui/material";
 
 function Counter() {
   const [count, setCount] = useState(0);
@@ -31,12 +32,12 @@ function Counter() {
   // will call the function on every updation of count + data state
 
   return (
-    <div>
+    <div style={{margin:8}}>
       {/* <h1>Counter:{count}</h1> */}
-      <button onClick={() => setCount(count + 1)}>update count</button>
-      <button onClick={() => setData(data + 1)}>update data</button>
+      <Button variant='outlined' onClick={() => setCount(count + 1)}>update count</Button>
+      <Button variant='outlined'  onClick={() => setData(data + 1)}>update data</Button>
       
-      <button onClick={()=>(setDisplay(!display))}>Toggle counter</button>
+      <Button variant='outlined'  onClick={()=>(setDisplay(!display))}>Toggle counter</Button>
       {
         display?<ShowCounter counter={count} data={data}/>:null
       }

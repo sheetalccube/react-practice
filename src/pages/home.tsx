@@ -1,13 +1,7 @@
-import {  Outlet, } from "react-router-dom";
-import {
-  Box,
-  Typography,
-  Container,
-  Paper,
-} from "@mui/material";
+import { Outlet } from "react-router-dom";
+import { Box, Typography, Container, Paper } from "@mui/material";
 function Home() {
   const isLoggedIn = localStorage.getItem("token");
-
 
   return (
     <>
@@ -20,11 +14,12 @@ function Home() {
             This is the main landing page of our React application. Use the
             navigation bar above to explore different sections like Todos,
             Users, Forms, and more.
-          </Typography>
-          <Typography variant="body1" sx={{ fontWeight: 500 }}>
-            {isLoggedIn
-              ? "You are currently logged in. Enjoy browsing your content!"
-              : "You are not logged in. Please log in to access protected pages."}
+            <br />
+            <h5>
+              {isLoggedIn
+                ? "You are currently logged in. Enjoy browsing your content!"
+                : "You are not logged in. Please log in to access protected pages."}
+            </h5>
           </Typography>
         </Paper>
 

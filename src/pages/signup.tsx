@@ -52,8 +52,9 @@ export default function SignupForm() {
   });
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 6 }}>
-      <Paper elevation={3} sx={{ p: 4 }}>
+    <Container maxWidth="sm" sx={{ mt: 6 }}
+    >
+      <Paper  sx={{ p: 4 }}>
         <Typography variant="h4" align="center" gutterBottom>
           Sign Up
         </Typography>
