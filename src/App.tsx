@@ -19,7 +19,12 @@ import { Suspense, type JSX } from "react";
 import { CircularProgress, Box } from "@mui/material";
 
 const Loader = () => (
-  <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+  <Box
+    display="flex"
+    justifyContent="center"
+    alignItems="center"
+    minHeight="100vh"
+  >
     <CircularProgress />
   </Box>
 );
@@ -34,16 +39,17 @@ function App() {
       Component: root,
       // errorElement: <Error />,
       children: [
-        { path: "/", element: withSuspense(<Home />) },
+        // { path: "/", element: withSuspense(<Home />) },
+        { index: true, element: withSuspense(<Home />) },
+        // index true means root k liye yeh defualt route h yha need nhi h path "/" rkhne ki
+
         {
           path: "/tutorial",
           element: withSuspense(<Tutorials />),
           children: [
             {
               path: "react",
-              element: (
-                <AuthGuard>{withSuspense(<ReactTut />)}</AuthGuard>
-              ),
+              element: <AuthGuard>{withSuspense(<ReactTut />)}</AuthGuard>,
             },
           ],
         },
@@ -55,7 +61,7 @@ function App() {
         { path: "user-detail/:id", element: withSuspense(<UserDetail />) },
         { path: "login", element: withSuspense(<Login />) },
         { path: "form", element: withSuspense(<ControlledExample />) },
-        { path: "*", element: <Error /> }, 
+        { path: "*", element: <Error /> },
       ],
     },
   ]);

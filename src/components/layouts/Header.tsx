@@ -1,5 +1,5 @@
-import { AppBar, Toolbar, Link, Box, Button } from "@mui/material";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { AppBar, Toolbar, Box, Button } from "@mui/material";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Header() {
   const navigate = useNavigate();
@@ -10,85 +10,61 @@ function Header() {
     navigate("/login");
   };
 
+  const navItems = [
+    { label: "Home", path: "/", end: true },
+    { label: "Todos", path: "/todos" },
+    { label: "About", path: "/about" },
+    { label: "Users", path: "/user-list" },
+    { label: "Counter", path: "/counter" },
+    { label: "Tutorials", path: "/tutorial" },
+  ];
+
   return (
-    <>
-      <AppBar position="static" color="primary">
-        <Toolbar sx={{ gap: 3 }}>
-          <Link
-            component={RouterLink}
-            to="/"
-            underline="none"
-            color="inherit"
-            sx={{ fontWeight: 500 }}
+    <AppBar position="static" color="primary">
+      <Toolbar sx={{ gap: 3 }}>
+        {navItems.map(({ label, path, end }) => (
+          <NavLink
+            key={path}
+            to={path}
+            end={end}
+            style={({ isActive }) => ({
+              color: "inherit",
+              textDecoration: "none",
+              fontWeight: isActive ? 700 : 500,
+              borderBottom: isActive ? "2px solid yellow" : "none",
+              paddingBottom: "2px",
+            })}
           >
-            Home
-          </Link>
-          <Link
-            component={RouterLink}
-            to="/todos"
-            underline="none"
-            color="inherit"
-          >
-            Todos
-          </Link>
-          <Link
-            component={RouterLink}
-            to="/about"
-            underline="none"
-            color="inherit"
-          >
-            About
-          </Link>
-          <Link
-            component={RouterLink}
-            to="/user-list"
-            underline="none"
-            color="inherit"
-          >
-            Users
-          </Link>
-          <Link
-            component={RouterLink}
-            to="/counter"
-            underline="none"
-            color="inherit"
-          >
-            Counter
-          </Link>
-          <Link
-            component={RouterLink}
-            to="/tutorial"
-            underline="none"
-            color="inherit"
-          >
-            Tutorials
-          </Link>
-          {/* <Link
-            component={RouterLink}
-            to="/form"
-            underline="none"
-            color="inherit"
-          >
-            Form
-          </Link> */}
-          <Box flexGrow={1} />
-          {isLoggedIn ? (
-            <Button variant="outlined" color="inherit" onClick={handleLogout}>
-              Logout
+            {label}
+          </NavLink>
+        ))}
+
+        <Box flexGrow={1} />
+
+        {isLoggedIn ? (
+          <Button variant="outlined" color="inherit" onClick={handleLogout}>
+            Logout
+          </Button>
+        ) : (
+          <>
+            <Button
+              variant="outlined"
+              color="inherit"
+              onClick={() => navigate("/login")}
+            >
+              Login
             </Button>
-          ) : (
-            <>
-              <Button variant="outlined" color="inherit" onClick={() => navigate("/login")}>
-  Login
-              </Button>
-              <Button variant="outlined" color="inherit" onClick={() => navigate("/signup")}>
-  Signup
-              </Button>
-            </>
-          )}
-        </Toolbar>
-      </AppBar>
-    </>
+            <Button
+              variant="outlined"
+              color="inherit"
+              onClick={() => navigate("/signup")}
+            >
+              Signup
+            </Button>
+          </>
+        )}
+      </Toolbar>
+    </AppBar>
   );
 }
 
