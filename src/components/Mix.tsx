@@ -9,12 +9,13 @@ import Toggle from "@/components/toggle-conditional-rendering";
 import LazyParent from "@/components/LazyLoad/lazyParent";
 import StyledExample from "@/components/styledExample/main";
 import InputRefExample from "@/components/hookExamples/inputRefExample";
+import ForwardRef from "./hookExamples/forwardRef/ForwardRef";
 
 function showName(names: string) {
   alert(names);
 }
 
-function App() {
+function Mix() {
   console.log("app component is called");
   const [details, setDetails] = useState("");
   const name = "sheetal";
@@ -38,6 +39,7 @@ function App() {
     <div>
       {/* <UsersMain /> */}
       {/* <Todos /> */}
+      <ForwardRef/>
       <hr />
       <LazyParent />
       <hr/>
@@ -86,4 +88,4 @@ function App() {
   );
 }
 
-export default App;
+export default Mix;

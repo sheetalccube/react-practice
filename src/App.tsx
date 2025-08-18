@@ -17,6 +17,8 @@ const ControlledExample = lazy(() => import("@/components/controlled-form"));
 const SignupForm = lazy(() => import("@/pages/signup"));
 import { Suspense, type JSX } from "react";
 import { CircularProgress, Box } from "@mui/material";
+import Mix from "./components/Mix";
+import ContextExample from "./components/ContextAPI/ContextExample";
 
 const Loader = () => (
   <Box
@@ -61,6 +63,8 @@ function App() {
         { path: "user-detail/:id", element: withSuspense(<UserDetail />) },
         { path: "login", element: withSuspense(<Login />) },
         { path: "form", element: withSuspense(<ControlledExample />) },
+        { path: "mix", element: withSuspense(<Mix />) },
+        { path: "context", element: withSuspense(<ContextExample />) },
         { path: "*", element: <Error /> },
       ],
     },

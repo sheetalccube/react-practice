@@ -1,7 +1,11 @@
+import UsersClass from "@/components/classBased/UsersClass";
 
 function About() {
   return (
-    <div> I am About page</div>
+    <div> I am About page
+      <UsersClass/>
+    </div>
+
   );
 }
 

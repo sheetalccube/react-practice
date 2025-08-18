@@ -17,6 +17,8 @@ function Header() {
     { label: "Users", path: "/user-list" },
     { label: "Counter", path: "/counter" },
     { label: "Tutorials", path: "/tutorial" },
+    { label: "Mix", path: "/mix" },
+    {label:'context', path:'/context', },
   ];
 
   return (

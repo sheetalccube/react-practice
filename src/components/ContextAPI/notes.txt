@@ -1,0 +1,11 @@
+prop drilling := agr 1 ke andar 1 ese bht sare component h toh 1st se last tk agr data bhejna h toh bich k sare comp ko recieive krna pdega 
+which is good agr 1-2 hi component h toh but agr jyda h toh application slow ho jaegi 
+
+context api :- yeh help krti h ese data communication me 1st s data direct last me ya jha chhaiye whi deliver hoga 
+
+
+context api part :---
+
+createContect :-- to initiate context API 
+provider:--use for update or provide data
+usecontext:---get data from context API 
