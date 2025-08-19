@@ -19,7 +19,8 @@ function Header() {
     { label: "Tutorials", path: "/tutorial" },
     { label: "Mix", path: "/mix" },
     {label:'context', path:'/context', },
-    { label: "api", path: "/api" },
+    { label: "Api", path: "/api" },
+    { label: "Hoc", path: "/hoc" },
   ];
 
   return (

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
+import api from "./api";
+import { Button } from "@mui/material";
 
 interface Post {
   userId: number;
@@ -10,35 +12,63 @@ interface Post {
 
 function DummyApiCall() {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState<number>(0);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
-  useEffect(() => {
-    axios
-      .get<Post[]>("https://jsonplaceholder.typicode.com/posts")
+  const fetchPosts = (page: number) => {
+    setLoading(true);
+    api
+      .get<Post[]>(`/posts?_start=${page * 10}&_limit=10`)
       .then((response) => {
-        setPosts(response.data);
+        if (response.data.length === 0) {
+          setHasMore(false);
+        } else {
+          setPosts((prev) => [...prev, ...response.data]);
+        }
         setLoading(false);
       })
       .catch((err: AxiosError) => {
         setError(err.message);
         setLoading(false);
       });
+  };
+  useEffect(() => {
+    fetchPosts(0);
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  const handleLoadMore = () => {
+    const nextPage = page + 1;
+    setPage(nextPage);
+    fetchPosts(nextPage);
+  };
   if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 
   return (
     <div>
       <h2>Dummy API Data</h2>
       <ul>
-        {posts.slice(0, 5).map((post) => (
+        {posts.map((post) => (
           <li key={post.id}>
             <strong>{post.title}</strong>
           </li>
         ))}
       </ul>
+
+      {hasMore && !loading && (
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={handleLoadMore}
+          sx={{ mt: 2 }}
+        >
+          Load More
+        </Button>
+      )}
+
+      {loading && <p>Loading...</p>}
+      {/* {!hasMore && <p>No more records.</p>} */}
     </div>
   );
 }
