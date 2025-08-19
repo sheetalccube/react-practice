@@ -9,3 +9,7 @@ context api part :---
 createContect :-- to initiate context API 
 provider:--use for update or provide data
 usecontext:---get data from context API 
+
+
+class based component me 1 hi context use ho skta h static se 
+functional me multiple use hote h

@@ -44,14 +44,13 @@ export default class UserFinder extends Component<object, UserFinderState> {
     };
   }
   static contextType = UserContext;
-  declare context: React.ContextType<typeof UserContext>; 
+  declare context: React.ContextType<typeof UserContext>;
 
   componentDidMount() {
-    // Fetch users on component mount bcz api s data aaega so we can call api here 
+    // Fetch users on component mount bcz api s data aaega so we can call api here
     // this.setState({ filteredUsers: this.userList });
-    
 
-    // getting the list from context 
+    // getting the list from context
     this.setState({ filteredUsers: this.context });
   }
 
@@ -59,14 +58,19 @@ export default class UserFinder extends Component<object, UserFinderState> {
     this.setState({ searchTerm: event.target.value });
   };
 
-  componentDidUpdate(prevProp:UserFinder, prevState: UserFinderState) {
+  componentDidUpdate(prevProp: UserFinder, prevState: UserFinderState) {
     // Update filtered users when search term changes so that we can handle side effects
     if (prevState.searchTerm !== this.state.searchTerm) {
-      this.setState({
-        filteredUsers: this.context.filter((user) =>
-          user.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
-        ),
-      });
+      const filtered = this.context.filter((user) =>
+        user.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+      );
+
+      if (filtered.length === 0) {
+        // Throwing error will be caught by ErrorBoundary
+        throw new Error(`No users found matching "${this.state.searchTerm}"`);
+      }
+
+      this.setState({ filteredUsers: filtered });
     }
   }
   componentWillUnmount() {
@@ -113,7 +117,9 @@ export default class UserFinder extends Component<object, UserFinderState> {
                     </ListItem>
                   ))
                 ) : (
-                  <Typography color="text.secondary">No users found.</Typography>
+                  <Typography color="text.secondary">
+                    No users found.
+                  </Typography>
                 )}
               </List>
             </CardContent>

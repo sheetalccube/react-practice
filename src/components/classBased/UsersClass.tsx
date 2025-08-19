@@ -1,6 +1,7 @@
 import { Component } from "react";
 import UserFinder from "./UserFinder";
 import { Button } from "@mui/material";
+import ErrorBoundary from "./ErrorBoundary";
 
 interface UsersClassState {
   showUsers: boolean;
@@ -38,8 +39,10 @@ export default class UsersClass extends Component<{}, UsersClassState> {
         {this.state.showUsers && (
           <div>
             <h1>Users List</h1>
-            
-            <UserFinder/>
+            <ErrorBoundary>
+              <UserFinder/>
+
+            </ErrorBoundary>
           </div>
         )}
       </div>
