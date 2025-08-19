@@ -19,6 +19,7 @@ import { Suspense, type JSX } from "react";
 import { CircularProgress, Box } from "@mui/material";
 import Mix from "./components/Mix";
 import ContextExample from "./components/ContextAPI/ContextExample";
+import DummyApiCall from "./components/axios/DummyApiCall";
 
 const Loader = () => (
   <Box
@@ -65,6 +66,7 @@ function App() {
         { path: "form", element: withSuspense(<ControlledExample />) },
         { path: "mix", element: withSuspense(<Mix />) },
         { path: "context", element: withSuspense(<ContextExample />) },
+        { path: "/api", element: withSuspense(<DummyApiCall />) },
         { path: "*", element: <Error /> },
       ],
     },
