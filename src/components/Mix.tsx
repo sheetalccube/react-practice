@@ -6,7 +6,7 @@ import Demo from "@/components/demo-props";
 import StudyGen from "@/components/myGenerics";
 import Counter from "@/components/counter/counter";
 import Toggle from "@/components/toggle-conditional-rendering";
-import LazyParent from "@/components/LazyLoad/lazyParent";
+import LazyParent from "@/components/lazyLoad/lazyParent";
 import StyledExample from "@/components/styledExample/main";
 import InputRefExample from "@/components/hookExamples/inputRefExample";
 import ForwardRef from "./hookExamples/forwardRef/ForwardRef";
