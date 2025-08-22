@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import Home from "@/components/ProductCart/Home";
 import type { Product } from "@/components/ProductCart/marketplace";
 import { addToCart } from "@/store/Services/Actions/action";
+import type { AppDispatch, RootState } from "@/store/Store";
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
   addToCartHandler: (data: Product) => dispatch(addToCart(data)),
 });
 // component to store
@@ -14,7 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 // state to prop is used to map the state from the Redux store to the props of the component.
 // store to componen
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   cardData: state.cartItemReducer.cartData,
 });
 

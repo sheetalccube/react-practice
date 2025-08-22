@@ -2,8 +2,10 @@ import { AppBar, Toolbar, Box, Button, IconButton, Badge } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaCartPlus } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import type { RootState } from "@/store/Services/Reducers";
-
+import type { RootState } from "@/store/Store";
+// this is a hook from react-redux for getting the state of the application.
+// this is not available in class components. we use connect method to connect the component to the Redux store.
+// connect functional me bi use hota h but  hooks easy h convenient h jyada
 function Header() {
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("token");

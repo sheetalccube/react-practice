@@ -1,15 +1,24 @@
 import { useEffect, useState } from "react";
 import ShowCounter from "./ShowCounter";
 import { Button } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from "@/store/Store";
 
 function Counter() {
   const [count, setCount] = useState(0);
   const [data, setData] = useState(0);
-  const [display,setDisplay] = useState(true);
+  const [display, setDisplay] = useState(true);
+  // if we are using useselector react will automatically add subscription to
+  // this componet so whenever the value chnages it will re-render the component.
+  // if theh component unmount the react-redux  will automatically clear this subscription.
+  const counterValue = useSelector(
+    (state: RootState) => state.counterReducer.counter
+  );
 
   function callOnce() {
     console.log("callOnce");
   }
+  const dispatch = useDispatch();
 
   //   useEffect(() => {
   //   callOnce();
@@ -30,17 +39,34 @@ function Counter() {
     callOnce();
   }, [count, data]);
   // will call the function on every updation of count + data state
-
+  function incrementHandler() {
+    dispatch({ type: "ADD" });
+  }
+  function decrementHandler() {
+    dispatch({ type: "SUBTRACT" });
+  }
   return (
-    <div style={{margin:8}}>
-      {/* <h1>Counter:{count}</h1> */}
-      <Button variant='outlined' onClick={() => setCount(count + 1)}>update count</Button>
-      <Button variant='outlined'  onClick={() => setData(data + 1)}>update data</Button>
-      
-      <Button variant='outlined'  onClick={()=>(setDisplay(!display))}>Toggle counter</Button>
-      {
-        display?<ShowCounter counter={count} data={data}/>:null
-      }
+    <div style={{ margin: 8 }}>
+      <Button variant="outlined" onClick={() => setCount(count + 1)}>
+        update count
+      </Button>
+      <Button variant="outlined" onClick={() => setData(data + 1)}>
+        update data
+      </Button>
+
+      <Button variant="outlined" onClick={() => setDisplay(!display)}>
+        Toggle counter
+      </Button>
+      {display ? <ShowCounter counter={count} data={data} /> : null}
+      <br />
+      <Button variant="outlined" onClick={incrementHandler}>
+        increment count for state
+      </Button>
+      <Button variant="outlined" onClick={decrementHandler}>
+        decrement count for state
+      </Button>
+
+      <h1>Counter from Redux: {counterValue}</h1>
 
       <br />
     </div>
