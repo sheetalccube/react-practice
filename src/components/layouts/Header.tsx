@@ -1,9 +1,15 @@
-import { AppBar, Toolbar, Box, Button } from "@mui/material";
+import { AppBar, Toolbar, Box, Button, IconButton, Badge } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
+import { FaCartPlus } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store/Services/Reducers";
 
 function Header() {
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("token");
+  const cartCount = useSelector(
+    (state: RootState) => state.cartItemReducer.cartData.length
+  );
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -18,9 +24,10 @@ function Header() {
     { label: "Counter", path: "/counter" },
     { label: "Tutorials", path: "/tutorial" },
     { label: "Mix", path: "/mix" },
-    {label:'context', path:'/context', },
+    { label: "Context", path: "/context" },
     { label: "Api", path: "/api" },
     { label: "Hoc", path: "/hoc" },
+    { label: "Marketplace", path: "/marketplace" },
   ];
 
   return (
@@ -45,6 +52,11 @@ function Header() {
 
         <Box flexGrow={1} />
 
+        <IconButton color="inherit" onClick={() => navigate("/marketplace")}>
+          <Badge badgeContent={cartCount} color="error" overlap="circular">
+            <FaCartPlus size={20} />
+          </Badge>
+        </IconButton>
         {isLoggedIn ? (
           <Button variant="outlined" color="inherit" onClick={handleLogout}>
             Logout

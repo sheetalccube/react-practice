@@ -16,7 +16,6 @@ function showName(names: string) {
 }
 
 function Mix() {
-  console.log("app component is called");
   const [details, setDetails] = useState("");
   const name = "sheetal";
   const age = 27;
@@ -27,26 +26,24 @@ function Mix() {
   }
   function changevar() {
     fruitname = "grapes";
-    console.log(fruitname);
   }
 
   function funccalled() {
     alert("hy");
-    console.log("functio called");
   }
 
   return (
     <div>
       {/* <UsersMain /> */}
       {/* <Todos /> */}
-      <ForwardRef/>
+      <ForwardRef />
       <hr />
       <LazyParent />
-      <hr/>
-      <StyledExample/>
-      <hr/>
-      <InputRefExample/>
-      
+      <hr />
+      <StyledExample />
+      <hr />
+      <InputRefExample />
+
       <h1>
         my name is {name} and age is {age}
       </h1>
@@ -61,7 +58,7 @@ function Mix() {
       <hr />
       <h1>props</h1>
       {/* call parent component function from child component */}
-      <Demo name="g" age={12} showName={() => showName('hello')}/>
+      <Demo name="g" age={12} showName={() => showName("hello")} />
       <hr />
       <h1>Generics and Interfaces</h1>
       <StudyGen />

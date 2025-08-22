@@ -1,16 +1,20 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import './styles/variables.css';
+import "./styles/variables.css";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import theme from "./theme";
 // import App1 from "./App1";
 import App from "./App";
 
+import { Provider } from "react-redux";
+import store from "./store/Store";
 
 createRoot(document.getElementById("root")!).render(
   <ThemeProvider theme={theme}>
     <CssBaseline />
-    <App />
+    <Provider store={store}>
+      ,<App />
+    </Provider>
     {/* <App1/> */}
   </ThemeProvider>
 );

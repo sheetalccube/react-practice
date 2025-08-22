@@ -17,10 +17,14 @@ const ControlledExample = lazy(() => import("@/components/controlled-form"));
 const SignupForm = lazy(() => import("@/pages/signup"));
 import { Suspense, type JSX } from "react";
 import { CircularProgress, Box } from "@mui/material";
+import Marketplace from "./components/ProductCart/marketplace";
 const MixExample = lazy(() => import("@/components/Mix"));
 const DummyApiCall = lazy(() => import("@/components/axios/DummyApiCall"));
 const HocExample = lazy(() => import("@/components/Hoc/hocExample"));
-const ContextExample = lazy(() => import("@/components/ContextAPI/ContextExample"));
+const ContextExample = lazy(
+  () => import("@/components/ContextAPI/ContextExample")
+);
+
 const Loader = () => (
   <Box
     display="flex"
@@ -67,8 +71,8 @@ function App() {
         { path: "mix", element: withSuspense(<MixExample />) },
         { path: "context", element: withSuspense(<ContextExample />) },
         { path: "/api", element: withSuspense(<DummyApiCall />) },
-        {path:'hoc', element:withSuspense(<HocExample/>)  },
-      
+        { path: "marketplace", element: withSuspense(<Marketplace />) },
+        { path: "hoc", element: withSuspense(<HocExample />) },
         { path: "*", element: <Error /> },
       ],
     },
